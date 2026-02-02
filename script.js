@@ -1,10 +1,12 @@
+// Elementos principales
 const content = document.getElementById("content");
 const overlay = document.getElementById("overlay");
 const reasonInput = document.getElementById("reason");
-
 let pendingUrl = null;
 
-// Cargar fuentes
+// ===========================
+// 1️⃣ Cargar fuentes desde JSON
+// ===========================
 fetch("sources.json")
   .then(res => res.json())
   .then(data => {
@@ -21,26 +23,40 @@ fetch("sources.json")
         card.className = "card";
         card.innerHTML = `<span>${source.icon}</span> ${source.name}`;
 
+        // Click en la fuente → abrir overlay
         card.onclick = () => openWithPause(source.url);
         section.appendChild(card);
       });
 
       content.appendChild(section);
     });
+  })
+  .catch(err => {
+    console.error("Error cargando sources.json:", err);
+    content.innerHTML = "<p>Error cargando fuentes.</p>";
   });
 
-// Pausa consciente
+// ===========================
+// 2️⃣ Función para pausa consciente
+// ===========================
 function openWithPause(url) {
+  if (!url) return;
   pendingUrl = url;
   reasonInput.value = "";
   overlay.classList.remove("hidden");
 }
 
+// ===========================
+// 3️⃣ Botón Cancelar
+// ===========================
 document.getElementById("cancel").onclick = () => {
   overlay.classList.add("hidden");
   pendingUrl = null;
 };
 
+// ===========================
+// 4️⃣ Botón Continuar (con validación)
+// ===========================
 document.getElementById("continue").onclick = () => {
   const reason = reasonInput.value.trim();
 
@@ -51,17 +67,26 @@ document.getElementById("continue").onclick = () => {
 
   overlay.classList.add("hidden");
 
-  const url = pendingUrl;
+  if (!pendingUrl) {
+    console.error("No hay URL definida para abrir.");
+    return;
+  }
+
+  const urlToOpen = pendingUrl;
   pendingUrl = null;
 
-  // pequeño delay para asegurar que el overlay se cierre visualmente
-  setTimeout(() => {
-    window.open(url, "_blank");
-  }, 100);
+  try {
+    const validatedUrl = new URL(urlToOpen);
+    window.open(validatedUrl.href, "_blank");
+  } catch (e) {
+    console.error("La URL no es válida:", urlToOpen);
+    alert("Error: la URL no es válida.");
+  }
 };
 
-
-// Modo oscuro
+// ===========================
+// 5️⃣ Modo oscuro
+// ===========================
 const toggle = document.getElementById("darkToggle");
 
 if (localStorage.getItem("dark") === "true") {
@@ -75,4 +100,3 @@ toggle.onclick = () => {
     document.body.classList.contains("dark")
   );
 };
-
