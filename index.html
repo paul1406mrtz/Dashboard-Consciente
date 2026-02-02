@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard consciente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>📌 Fuentes, no feeds</h1>
+  <div class="controls">
+    <button id="darkToggle">🌙</button>
+  </div>
+</header>
+
+<main id="content">
+  <!-- Las fuentes se cargan aquí -->
+</main>
+
+<!-- Overlay de pausa consciente -->
+<div id="overlay" class="hidden">
+  <div class="overlay-box">
+    <h2>Un segundo.</h2>
+    <p>¿Qué vas a consumir y por qué?</p>
+    <textarea id="reason" placeholder="Escribe una frase corta…"></textarea>
+    <div class="overlay-actions">
+      <button id="cancel">Cancelar</button>
+      <button id="continue">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "Economía": [
+    {
+      "name": "The Economist",
+      "url": "https://www.economist.com",
+      "icon": "💰"
+    }
+  ],
+  "Ciencia y divulgación": [
+    {
+      "name": "Kurzgesagt",
+      "url": "https://www.youtube.com/@Kurzgesagt",
+      "icon": "🧬"
+    },
+    {
+      "name": "Veritasium",
+      "url": "https://www.youtube.com/@veritasium",
+      "icon": "🧠"
+    }
+  ],
+  "Comunidades": [
+    {
+      "name": "r/science",
+      "url": "https://www.reddit.com/r/science/",
+      "icon": "💬"
+    },
+    {
+      "name": "4chan /sci/",
+      "url": "https://boards.4chan.org/sci/",
+      "icon": "⚠️"
+    }
+  ]
+}
