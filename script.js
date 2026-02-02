@@ -72,17 +72,17 @@ document.getElementById("continue").onclick = () => {
     return;
   }
 
-  const urlToOpen = pendingUrl;
+  let urlToOpen = pendingUrl.trim();
   pendingUrl = null;
 
-  try {
-    const validatedUrl = new URL(urlToOpen);
-    window.open(validatedUrl.href, "_blank");
-  } catch (e) {
-    console.error("La URL no es válida:", urlToOpen);
-    alert("Error: la URL no es válida.");
+  // Asegurar que la URL sea absoluta
+  if (!/^https?:\/\//i.test(urlToOpen)) {
+    urlToOpen = "https://" + urlToOpen;
   }
+
+  window.open(urlToOpen, "_blank");
 };
+
 
 // ===========================
 // 5️⃣ Modo oscuro
@@ -100,3 +100,4 @@ toggle.onclick = () => {
     document.body.classList.contains("dark")
   );
 };
+
