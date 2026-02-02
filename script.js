@@ -1,16 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Elementos principales
   const content = document.getElementById("content");
-  const overlay = document.getElementById("overlay");
-  const reasonInput = document.getElementById("reason");
   const toggle = document.getElementById("darkToggle");
-  const cancelBtn = document.getElementById("cancel");
-  const continueBtn = document.getElementById("continue");
-
-  let pendingUrl = null;
 
   // ===========================
-  // 1️⃣ Cargar fuentes desde JSON
+  // Cargar fuentes desde JSON
   // ===========================
   fetch("sources.json")
     .then(res => res.json())
@@ -28,8 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
           card.className = "card";
           card.innerHTML = `<span>${source.icon}</span> ${source.name}`;
 
-          // Click en la fuente → abrir overlay
-          card.onclick = () => openWithPause(source.url);
+          // Click directo → abre la fuente
+          card.onclick = () => {
+            let urlToOpen = source.url.trim();
+
+            // Asegurar que tenga https://
+            if (!/^https?:\/\//i.test(urlToOpen)) {
+              urlToOpen = "https://" + urlToOpen;
+            }
+
+            window.open(urlToOpen, "_blank");
+          };
+
           section.appendChild(card);
         });
 
@@ -42,54 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // ===========================
-  // 2️⃣ Función para pausa consciente
-  // ===========================
-  function openWithPause(url) {
-    if (!url) return;
-    pendingUrl = url;
-    reasonInput.value = "";
-    overlay.classList.remove("hidden");
-  }
-
-  // ===========================
-  // 3️⃣ Botón Cancelar
-  // ===========================
-  cancelBtn.onclick = () => {
-    overlay.classList.add("hidden");
-    pendingUrl = null;
-  };
-
-  // ===========================
-  // 4️⃣ Botón Continuar (con validación)
-  // ===========================
-  continueBtn.onclick = () => {
-    const reason = reasonInput.value.trim();
-
-    if (!reason) {
-      alert("Escribe al menos una frase corta.");
-      return;
-    }
-
-    overlay.classList.add("hidden");
-
-    if (!pendingUrl) {
-      console.error("No hay URL definida para abrir.");
-      return;
-    }
-
-    let urlToOpen = pendingUrl.trim();
-    pendingUrl = null;
-
-    // Asegurar que la URL sea absoluta
-    if (!/^https?:\/\//i.test(urlToOpen)) {
-      urlToOpen = "https://" + urlToOpen;
-    }
-
-    window.open(urlToOpen, "_blank");
-  };
-
-  // ===========================
-  // 5️⃣ Modo oscuro
+  // Modo oscuro
   // ===========================
   if (localStorage.getItem("dark") === "true") {
     document.body.classList.add("dark");
@@ -103,6 +59,3 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 });
-
-
-
