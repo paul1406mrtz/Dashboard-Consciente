@@ -1,21 +1,19 @@
 {
-  "Economía": [
-    {
-      "name": "The Economist",
-      "url": "https://www.economist.com",
-      "icon": "💰"
-    }
-  ],
   "Ciencia y divulgación": [
-    {
-      "name": "Kurzgesagt",
-      "url": "https://www.youtube.com/@Kurzgesagt",
-      "icon": "🧬"
-    },
     {
       "name": "Veritasium",
       "url": "https://www.youtube.com/@veritasium",
       "icon": "🧠"
+    }
+    {
+      "name": "jeffilysh",
+      "url": "https://www.youtube.com/channel/UCTfQ65AxquXmih3r6rZmK-Q",
+      "icon": "🧪"
+    }
+    {
+      "name": "QuantumFracture",
+      "url": "https://www.youtube.com/channel/UCbdSYaPD-lr1kW27UJuk8Pw",
+      "icon": "💡"
     }
   ],
   "Comunidades": [
@@ -31,3 +29,4 @@
     }
   ]
 }
+
