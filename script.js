@@ -42,11 +42,24 @@ document.getElementById("cancel").onclick = () => {
 };
 
 document.getElementById("continue").onclick = () => {
-  overlay.classList.add("hidden");
-  if (pendingUrl) {
-    window.open(pendingUrl, "_blank");
+  const reason = reasonInput.value.trim();
+
+  if (!reason) {
+    alert("Escribe al menos una frase corta.");
+    return;
   }
+
+  overlay.classList.add("hidden");
+
+  const url = pendingUrl;
+  pendingUrl = null;
+
+  // pequeño delay para asegurar que el overlay se cierre visualmente
+  setTimeout(() => {
+    window.open(url, "_blank");
+  }, 100);
 };
+
 
 // Modo oscuro
 const toggle = document.getElementById("darkToggle");
@@ -62,3 +75,4 @@ toggle.onclick = () => {
     document.body.classList.contains("dark")
   );
 };
+
